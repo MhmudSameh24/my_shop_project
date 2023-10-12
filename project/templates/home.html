@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block main %}
+        <header>
+            <form action="" method="GET" >
+                <div class="search">
+                <input type="text" name="search" placeholder="search">
+                <button type="submit">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+                </div>
+                <div class="filter">
+                <select name="filter" id="filter">
+                    {%for row in categories%}
+                    <option value={{row.category_id}}>{{row.category_name}}</option>
+                    {%endfor%}
+                </select>
+                </div>
+            </form>
+        </header>
+
+
+        <main>
+
+
+
+
+            <div class="main">
+                <div class="show-products">
+
+                    {% for row in products %}
+                        <div class="product-card" value={{row.prod_id}}>
+                            <img class="prod-img" src={{row.img}}>
+                            <div class="prod-card-info">
+                                <h6 class="prod-name">{{row.name}}</h6>
+                                <p class="prod-disc">{{row.description}}</p>
+                                <form action="/" method="GET">
+                                    <button class="btn btn-info" name="prod_id" value={{row.prod_id}} type="submit">info</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    {% endfor%}
+
+
+                </div>
+
+
+                <div class="product-info" id="product-info">
+                    <div class="show-prod-info">
+                        {% if theproduct %}
+                        <img class="prod-img" src={{theproduct.img}}>
+                        <h6 class="prod-name">{{theproduct.name}}</h6>
+                        <div class="price">{{usd(theproduct.price)}}</div>
+                        <div class="cont-rate"><div class="rate">rate : {{rate.rate}}</div></div>
+                        <p class="prod-disc">
+                            {{theproduct.description}}
+                        </p>
+                        <div class="cont-rate">
+                            <p>rate the product :</p>
+                            <form action="/" method="POST">
+                                <div class="mb-3">
+                                <input class="form-control" type="text" name="rate" placeholder="your rate from 1 to 5"></div>
+                                <div class="mb-3">
+                                <button class="btn btn-success" name="prod_id" value={{theproduct.prod_id}} type="submit">save</button></div>
+                            </form>
+                        </div>
+                        {%else%}
+
+                        {%endif%}
+                    </div>
+
+                    <div class="action" id="action">
+                        {% if theproduct %}
+                            <form action="" method="POST">
+                                <button class="add-cart" name="cart_prod_id" value={{theproduct.prod_id}} type="submit">
+                                    <span class="material-symbols-outlined">
+                                        add
+                                    </span>
+                                    <span>add to cart</span>
+                                </button>
+                            </form>
+                        {%else%}
+
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <script>
+            //document.addEventListener("click",async function(event){
+            //    if (event.target.classList.contains("product-card")){
+            //        let response = await fetch("/home?prod_id="+event.target.getAttribute("value"));
+            //        //let show = await response.text();
+            //        //document.getElementById("product-info").innerHTML = show;
+            //    }
+            //});
+        </script>
+
+{% endblock%}

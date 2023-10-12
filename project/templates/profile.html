@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block main %}
+        <header>
+
+        </header>
+
+
+        <main>
+
+                <div class="profile">
+                        <div class="profile-info">
+                            <div class="person-photo">
+                                <div class="mb-3"><img src={{info.photo}}></div>
+
+                                <div class="mb-3">
+                                <form action="/profile" method="post">
+                                    <div class="mb-3">
+                                    <input class="btn btn-info" name="photo" type="file"></div>
+                                    <button class="btn btn-outline-secondary" type="submit">Change my photo</button>
+                                </form></div>
+                            </div>
+                            <div class="person-info">
+                                <div class="mb-3  input-div"><h4 class="name">{{info.user_name}}</h4></div>
+
+                                <div class="mb-3  input-div">
+                                <form action="/profile" method="post">
+                                    <div class="mb-3">
+                                        <input name="email" type="text" value={{info.email}}>
+                                    </div>
+                                    <button class="btn btn-outline-secondary">change email</button>
+                                </form></div>
+
+                                <div class="mb-3  input-div">
+                                <form action="/profile" method="post">
+                                    <div class="mb-3">
+                                        <input name="phone" type="text" value={{info.phone}}>
+                                    </div>
+                                    <button class="btn btn-outline-secondary">change phone number</button>
+                                </form></div>
+                                <div class="mb-3 links-div">
+                                    <a href="/operations">product I bought</a>
+                                    <a href="/admin">product I sell</a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+        </main>
+
+
+{% endblock%}

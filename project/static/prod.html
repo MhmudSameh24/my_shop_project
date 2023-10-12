@@ -1,0 +1,29 @@
+<div class="show-prod-info">
+    {% if theproduct %}
+    <img class="prod-img" src= {{theproduct.img}} >
+    <h6 class="prod-name">{{theproduct.name}}</h6>
+    <div class="price">{{usd({{theproduct.price}})}}</div>
+    <div class="cont-rate"><div class="rate">rate : {{rate}}</div></div>
+    <p class="prod-disc">
+        {{theproduct.description}}
+    </p>
+    <div class="cont-rate">
+        <p>rate the product :</p><input type="text" name="rate" placeholder="your rate">
+    </div>
+    {%else%}
+
+    {%endif%}
+</div>
+
+<div class="action">
+    {% if theproduct %}
+        <button class="add-cart">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+            <span>add to cart</span>
+        </button>
+    {%else%}
+
+    {%endif%}
+</div>

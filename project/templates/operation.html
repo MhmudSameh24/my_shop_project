@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block main %}
+        <header>
+
+        </header>
+
+
+        <main>
+
+            <table class="mx-auto w-auto">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: Loop through the database entries to display them in this table -->
+
+                        {% for table in tables %}
+                            <tr>
+                                <td>{{table.name}}</td>
+                                <td>{{table.op_date}}</td>
+                                <td>{{usd(table.price)}}</td>
+                                <td>{{table.quant}}</td>
+                            </tr>
+                        {% endfor %}
+
+                </tbody>
+            </table>
+
+        </main>
+
+
+{% endblock%}

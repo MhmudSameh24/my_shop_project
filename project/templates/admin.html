@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block main %}
+        <header>
+                {{message}}
+        </header>
+
+
+        <main>
+
+                <div class="main">
+                        <div class="show-products">
+
+
+                        {% for row in products %}
+                                <div class="product-card" value={{row.prod_id}}>
+                                <img class="prod-img" src={{row.img}}>
+                                <div class="prod-card-info">
+                                        <h6 class="prod-name">{{row.name}}</h6>
+                                        <p class="prod-disc">{{row.description}}</p>
+                                        <form action="/admin" method="POST">
+                                        <button class="btn btn-danger del-prod" name="del-prod_id" value={{row.prod_id}} type="submit">
+                                                <span style="color: black;" class="material-symbols-outlined">
+                                                        delete_forever
+                                                </span>
+                                        </button>
+                                        </form>
+                                </div>
+
+                                </div>
+                        {% endfor%}
+
+
+                            <div class="product-card add-new-product" id="add-new-product">
+                                <div class="add-new-product-center">
+                                    <button class="add-new-product-buttton">
+                                        <span class="material-symbols-outlined">
+                                            add
+                                        </span>
+                                    </button>
+                                </div>
+                                <p>ADD NEW PRODUCT</p>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="add-pord-space-from">
+                                <form action="/admin" method="post" class="add-product-info dontshow" id="add-product-info-from">
+
+                                        <div class="mb-3 form-inputs">
+                                                <div class="mb-3">
+                                                <input class="prod-input" type="file" name="prod_img">
+                                                </div>
+                                                <div class="mb-3">
+                                                <input class="prod-input" type="text" name="prod_name" placeholder="Enter product name">
+                                                </div>
+                                                <div class="mb-3">
+                                                <input class="prod-input" type="text" name="price" placeholder="Enter product price">
+                                                </div>
+                                                <div class="mb-3">
+                                                <input class="prod-input" type="text" name="quantity" placeholder="Enter quantity of the product ">
+                                                </div>
+                                                <div class="mb-3">
+                                                <select name="category" class="prod-input">
+                                                        {%for row in categories%}
+                                                        <option value={{row.category_id}}>{{row.category_name}}</option>
+                                                        {%endfor%}
+                                                </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                <textarea class="form-control mx-auto w-auto prod-input" name="description" rows="4" cols="45">Write the description of the product here.</textarea>
+                                                </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                                <button class="btn btn-primary" type="submit" id="add-prod">Add product</button>
+                                        </div>
+
+                                </form>
+                        </div>
+
+                    </div>
+
+        </main>
+        <script>
+                let addprod = document.getElementById("add-new-product");
+                addprod.addEventListener("click",function(){
+                    let form_to_add = document.getElementById("add-product-info-from");
+                    form_to_add.classList.toggle("dontshow");
+                });
+                let but_to_add = document.getElementById("add-prod");
+                but_to_add.addEventListener("click", function(){
+                    let form_to_add = document.getElementById("add-product-info-from");
+                    form_to_add.classList.toggle("dontshow");
+                });
+            </script>
+
+
+{% endblock%}
