@@ -74,26 +74,10 @@ def home():
                 session["cart"] = []
                 session["cart"].append(int( request.form.get("cart_prod_id") ) )
 
-
     else:
         pass
-    """
-    if prodId:
-        theproduct = db.execute("select prod_id, name, img, description from products where prod_id = ?",int(prodId))[0]
-        rate  = db.execute("select avg(rate) as rate from products_rate where product_id = ?",int(prodId))[0]
-        return render_template("prod.html", theproduct=theproduct, rate=rate)
-    else:
-        if not request.args.get("sreach"):
-            sreach = "%"+"%"
-        else:
-            sreach = "%"+request.args.get("sreach")+"%"
-        if not request.args.get("filter"):
-            products = db.execute("select prod_id, name, img, description from products where name like ?",sreach)
-        else:
-            filter = int(request.args.get("filter"))
-            products = db.execute("select prod_id, name, img, description from products where name like ? ans category = ?",sreach,filter)
-        return render_template("home.html",products=products)
-    """
+    
+    
     if not request.args.get("search"):
         search = "%"+"%"
     else:
@@ -118,7 +102,7 @@ def cart():
         theproduct = db.execute("select prod_id, name, img, description, price from products where prod_id = ?",int(prodId))[0]
         rate = db.execute("select avg(rate) as rate from products_rate where product_id = ?",int(prodId))[0]
         if not rate:
-            rate = "not rates";
+            rate = "not rates"
         #return render_template("prod.html", theproduct=theproduct, rate=rate,usd=usd)
     else:
         theproduct = None

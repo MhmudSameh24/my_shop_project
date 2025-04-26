@@ -125,3 +125,66 @@ The database consists of the following tables:
    ```sh
    python app.py
 4. Access the app at http://localhost:5000
+
+
+
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="screenshots/home.png" alt="Home Page" width="45%">
+  <br>
+  <img src="screenshots/cart.png" alt="Shopping Cart" width="45%">
+  <br>
+  <img src="screenshots/admin.png" alt="Admin Panel" width="45%">
+</div>
+
+## 🔮 Future Improvements
+
+### High Priority
+- [ ] **Payment Gateway Integration**
+  - Implement Stripe/PayPal for secure transactions
+- [ ] **Enhanced Product Management**
+  - Add bulk product upload via CSV
+  - Inventory tracking system
+- [ ] **User Dashboard**
+  - Order tracking
+  - Wishlist functionality
+
+### Medium Priority
+- [ ] **Advanced Search**
+  - Price range filters
+  - Category-based filtering
+- [ ] **Review System**
+  - Text reviews with ratings
+  - Photo uploads for products
+- [ ] **Responsive Design**
+  - Mobile optimization
+  - Dark mode support
+
+### Low Priority
+- [ ] **Recommendation Engine**
+  - "Customers who bought this also bought..."
+- [ ] **Multi-language Support**
+  - Internationalization (i18n)
+- [ ] **API Endpoints**
+  - RESTful API for mobile apps
+
+## 🎯 Conclusion
+
+This Flask-based e-commerce platform provides a solid foundation for an online shop with:
+
+✔ **Core Features:**
+- User authentication (login/register)
+- Product catalog
+- Shopping cart
+- Order processing
+- Admin dashboard
+
+✔ **Technical Highlights:**
+- SQLite database with CS50 wrapper
+- Session-based cart management
+- Jinja2 templating
+- Rate limiting protection
+
+
