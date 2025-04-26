@@ -1,53 +1,127 @@
-# MyShop
-#### Description:
+# Online Shop Project Documentation  
 
-My project is a small online shop. I used Flask, python, javascript, HTML, and CSS to build this project.
- My project contains some main pages.
-> The _register_ page.
+This document provides an overview of the **Online Shop** project built using the **Flask** framework. The application includes user authentication, product management, a shopping cart, and order processing.  
 
-On this page, a user can create an account if he or she does not have one,
-by adding a unique username, a password, and a configuration of the password. After registration, the website drives the user to the _home page_.
+---
 
-> The _login_ page.
+## 📌 Table of Contents  
+1. [Project Overview](#-project-overview)  
+2. [Features](#-features)  
+3. [Database Schema](#-database-schema)  
+4. [API Endpoints](#-api-endpoints)  
+5. [Setup & Installation](#-setup--installation)  
+6. [Screenshots](#-screenshots)  
+7. [Future Improvements](#-future-improvements)  
 
-If the user already has an account, he or she can log in to the website via this page by entering their username, and password.
-After this, the website will drive the user to the _home page_.
+---
 
-> The main page _home page_.
+## 🚀 Project Overview  
+The **Online Shop** is a web application that allows users to:  
+- Browse products  
+- Add items to a cart  
+- Rate products  
+- Place orders  
+- Manage profiles  
 
-To open this page the user must be registered or logged in to the website with a valid username and password.
-Products are presented on this page, which allows the user to display the information about the product the user has chosen and allows him or her to
-rate it.
-Also, users can add the product to their cart from this page, there is a section on the right of the page, when the user selects a product all the
-information about this product is presented in this section and the button that allows the user to add the product to the cart.
-In addition, there is a menu button on the top right of all pages, that allows users to transport between different pages.
-One more thing, there are the search field and filter selection buttons that allow users to filter the products they want to buy or looking for.
+Admins can:  
+- Add/delete products  
+- View sales  
 
+The project uses:  
+- **Flask** (Python web framework)  
+- **SQLite** (Database)  
+- **Jinja2** (Templating engine)  
 
+---
 
->The _cart_ page.
+## ✨ Features  
 
-On this page, the user can find all products he or she has selected before on ``_home page_``, and the user can click the info button to display the
-information of the selected product on the right side of the page same as on the home page.
-Users can remove any product from their cart by clicking the remove button that appears after selecting a product.
-There is a long button under the nav bar that shows the price of all products in the cart and the user can complete the buying process by clicking
-on this button. After clicking on this button all the products in the cart will disappear and the cart will be empty.
-This process will be recorded on the ``"product I bought"`` section, that section user can reach from the profile page.
+### **User Features**  
+✅ **Authentication** – Login, Register, Logout  
+✅ **Product Browsing** – Search & filter products  
+✅ **Shopping Cart** – Add/remove items  
+✅ **Product Ratings** – Rate products (1-5 stars)  
+✅ **Order History** – View past purchases  
+✅ **Profile Management** – Update email & phone  
 
+### **Admin Features**  
+🛠 **Product Management** – Add/delete products  
+📊 **Sales Overview** – View order history  
 
->The _profile_ page.
+---
 
-This page displays the user information like their username, profile image, email, phone number, and two links that drive the user to the history of
-their purchase processes and the products that the user is selling, first link has the text: ``"product I bought"`` and the other has the text: ``"product I sell"``.
+## 🗃 Database Schema  
+The database consists of the following tables:  
 
->The _operations_ page.
+### **Users** (`users`)  
+| Column | Type | Description |  
+|--------|------|-------------|  
+| `id` | INTEGER | Primary Key |  
+| `user_name` | TEXT | Username |  
+| `password` | TEXT | Hashed password |  
+| `email` | TEXT | User email |  
+| `phone` | TEXT | User phone |  
 
-The user can visit this page by clicking on the ``"product I bought"`` link on the `_profile_ page`. This page displays all user's purchases processes
-in an organized table, representing in this table the product name, date, price, and quantity of this product at this time.
+### **Products** (`products`)  
+| Column | Type | Description |  
+|--------|------|-------------|  
+| `prod_id` | INTEGER | Primary Key |  
+| `name` | TEXT | Product name |  
+| `price` | INTEGER | Product price |  
+| `owner_id` | INTEGER | Admin who added the product |  
+| `description` | TEXT | Product description |  
+| `quantity` | INTEGER | Available stock |  
+| `category_id` | INTEGER | Foreign Key (categories) |  
 
+### **Categories** (`categories`)  
+| Column | Type | Description |  
+|--------|------|-------------|  
+| `id` | INTEGER | Primary Key |  
+| `name` | TEXT | Category name |  
 
+### **Product Ratings** (`products_rate`)  
+| Column | Type | Description |  
+|--------|------|-------------|  
+| `user_id` | INTEGER | Foreign Key (users) |  
+| `product_id` | INTEGER | Foreign Key (products) |  
+| `rate` | INTEGER | Rating (1-5) |  
 
-> The _admin_ page.
+### **Order Details** (`operations_details`)  
+| Column | Type | Description |  
+|--------|------|-------------|  
+| `usre_id` | INTEGER | Foreign Key (users) |  
+| `product_id` | INTEGER | Foreign Key (products) |  
+| `oper_date` | DATETIME | Order date |  
+| `price` | INTEGER | Price at purchase |  
 
-The user can visit this page by clicking on the `"product I sell"` link on the `_profile_ page`. This page displays all products the user put to sell on this website if found. And this page allows the user to add products to sell them on this website by clicking on the adding button.
-After clicking on that button, a small form appears on the right side of the page, this form takes some information about the product the user wants to sell like name, image, price, quantity, category of the product, and a small description. After filling in this piece of information, the user can click on the `"add product"` button to add this product.
+---
+
+## 🌐 API Endpoints  
+
+| Endpoint | Method | Description |  
+|----------|--------|-------------|  
+| `/`, `/home` | GET | Homepage (product listing) |  
+| `/cart` | GET, POST | Shopping cart management |  
+| `/profile` | GET, POST | User profile updates |  
+| `/admin` | GET, POST | Admin product management |  
+| `/operations` | GET | Order history |  
+| `/login` | GET, POST | User login |  
+| `/logout` | GET | Logout |  
+| `/register` | GET, POST | User registration |  
+
+---
+
+## 🛠 Setup & Installation  
+
+### **Prerequisites**  
+- Python 3.x  
+- Flask (`pip install flask`)  
+- CS50 SQL (`pip install cs50`)  
+
+### **Steps**  
+1. Clone the repository  
+2. Navigate to the project directory  
+3. Run:  
+   ```sh
+   python app.py
+4. Access the app at http://localhost:5000
