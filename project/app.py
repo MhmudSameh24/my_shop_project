@@ -46,7 +46,19 @@ def after_request(response):
 @app.route("/home/<int:prod_id>", methods=["GET", "POST"])
 @login_required
 def home():
-
+    """Handle the homepage and product details.
+    
+    Features:
+    - Displays all products or specific product details
+    - Handles product rating submissions
+    - Manages cart additions
+    
+    Args:
+        prod_id (int, optional): Product ID for detail view. Defaults to None.
+    
+    Returns:
+        rendered_template: Homepage or product detail page
+    """
     prodId = request.args.get("prod_id")
     if prodId:
         theproduct = db.execute("select prod_id, name, img, description, price from products where prod_id = ?",int(prodId))[0]
@@ -77,7 +89,7 @@ def home():
     else:
         pass
     
-    
+
     if not request.args.get("search"):
         search = "%"+"%"
     else:
@@ -97,6 +109,16 @@ def home():
 @app.route("/cart", methods=["GET", "POST"])
 @login_required
 def cart():
+    """Manage shopping cart functionality.
+    
+    Features:
+    - Displays cart contents
+    - Handles item removal
+    - Processes checkout
+    
+    Returns:
+        rendered_template: Cart page with current items
+    """
     prodId = request.args.get("prod_id")
     if prodId:
         theproduct = db.execute("select prod_id, name, img, description, price from products where prod_id = ?",int(prodId))[0]
@@ -149,6 +171,16 @@ def cart():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+    """Handle user profile management.
+    
+    Features:
+    - Displays current user information
+    - Processes profile updates (email, phone)
+    - Securely updates database with new info
+    
+    Returns:
+        rendered_template: Profile page with user data
+    """
     if request.method == "POST":
         if request.form.get("email"):
             db.execute("update users set email = ? where id = ?",request.form.get("email"),session["user_id"])
@@ -163,6 +195,17 @@ def profile():
 @app.route("/admin", methods=["GET", "POST"])
 @login_required
 def admin():
+    """Admin dashboard for product management.
+    
+    Features:
+    - Displays admin-owned products
+    - Handles product deletion
+    - Processes new product additions
+    - Includes form validation
+    
+    Returns:
+        rendered_template: Admin dashboard with product management interface
+    """
     msg = ""
     if request.method == "POST":
         if request.form.get("del-prod_id"):
@@ -187,12 +230,33 @@ def admin():
 @app.route("/operations", methods=["GET", "POST"])
 @login_required
 def operations():
+    """Display user order history.
+    
+    Features:
+    - Shows aggregated purchase history
+    - Groups orders by date
+    - Calculates order totals
+    
+    Returns:
+        rendered_template: Order history page with purchase details
+    """
     tables = db.execute("select Products.name as name, Operations_details.oper_date as op_date,sum(Operations_details.price) as price,count(Operations_details.product_id) as quant from Products join Operations_details on Products.prod_id = Operations_details.product_id where Operations_details.usre_id = ? group by Operations_details.product_id,Operations_details.oper_date order by Operations_details.oper_date desc",session["user_id"])
     return render_template("operation.html",tables=tables,usd=usd)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in"""
+    """Handle user login functionality.
+    
+    Features:
+    - Validates username/password
+    - Uses password hashing for security
+    - Manages user sessions
+    - Provides error feedback
+    
+    Returns:
+        redirect: To homepage after successful login
+        rendered_template: Login form with errors if failed
+    """
 
     # Forget any user_id
     session.clear()
@@ -231,7 +295,15 @@ def login():
 
 @app.route("/logout")
 def logout():
-    """Log user out"""
+    """Terminate user session.
+    
+    Features:
+    - Clears all session data
+    - Redirects to login page
+    
+    Returns:
+        redirect: To login page
+    """
 
     # Forget any user_id
     session.clear()
@@ -242,7 +314,18 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
+    """Handle new user registration.
+    
+    Features:
+    - Validates form inputs
+    - Checks for existing username
+    - Hashes passwords before storage
+    - Auto-login after successful registration
+    
+    Returns:
+        redirect: To homepage after registration
+        rendered_template: Registration form with errors if failed
+    """
 
     # Forget any user_id
     session.clear()
@@ -289,6 +372,6 @@ def register():
 
 
 
-
-
+if __name__ == "__main__":
+    app.run(debug=True)
 
